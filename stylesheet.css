@@ -152,9 +152,8 @@ p {font-size: var(--font-size-text);}
 .modal-content {
     background: rgba(255, 255, 255, .95);
     padding: var(--base-padding-2);
-    height: 60vh;
-    width: 60vw;
-    min-width: 420px;
+    height: 550px;
+    width: 420px;
     max-width: 600px;
     border-radius: var(--border-radius);
     border: 3px solid var(--text-color);
@@ -164,7 +163,7 @@ p {font-size: var(--font-size-text);}
 .player-content  {
     text-align: left;
     margin-top: -45px;
-    height: 55vh;
+    height: 500px;
     overflow: scroll;
 }
 
@@ -241,6 +240,14 @@ p {font-size: var(--font-size-text);}
 
 /* BREAKPOINTS */
 
+@media only screen and (min-width: 480px) {
+    .modal-content {width: 460px;}
+}
+
+@media only screen and (min-width: 540px) {
+    .modal-content {width: 520px;}
+}
+
 @media only screen and (min-width: 640px) {
     #home {flex-direction: row;}
     #home .logo {
@@ -248,6 +255,7 @@ p {font-size: var(--font-size-text);}
         margin-right: var(--base-padding-5);
     }
     .player-grid {grid-template-columns: 1fr 1fr 1fr;}
+    .modal-content {width: 600px;}
     .tournament-list {
         grid-template-columns: 1fr 1fr;
         gap: var(--base-padding-2);
