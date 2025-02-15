@@ -157,7 +157,7 @@ p {font-size: var(--font-size-text);}
     min-width: 420px;
     max-width: 600px;
     border-radius: var(--border-radius);
-    box-shadow: 0 0 50px rgba(3, 3, 3, 1);
+    border: 3px solid var(--text-color);
     text-align: right;
 }
 
