@@ -1,121 +1,199 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const players = Array.from(document.querySelectorAll(".player"));
-    const pageNumer = 2;
-    const fadeInterval = 12000;
-    
-    for (let i = players.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [players[i], players[j]] = [players[j], players[i]];
-    }
-    
-    players.forEach(player => {
-        player.style.display = "none";
-        player.style.opacity = "0";
-    });
-
-    const groups = [
-        players.slice(0, 6),
-        players.slice(6, players.length)
-    ];
-
-    let currentGroupIndex = 0;
-    let autoCycle = null;
-    
-    function updateButtonOpacities(activeIndex) {
-        for (let i = 0; i < pageNumer; i++) {
-            document.getElementById(`show${i + 1}`).style.opacity = (i === activeIndex) ? "1" : "0.3";
+    const fadeInterval = 12000; // time between auto-cycles in ms
+    const pageNumber = 2; // number of groups/buttons
+  
+    // Fetch players data from a separate JSON file
+    fetch("players.json")
+      .then(response => response.json())
+      .then(playersData => {
+        // Shuffle the players array
+        playersData.sort(() => Math.random() - 0.5);
+  
+        // Generate HTML for each player and add to the grid
+        const playerGrid = document.querySelector(".player-grid");
+        playerGrid.innerHTML = ""; // Clear any existing content
+  
+        playersData.forEach(player => {
+          const playerDiv = document.createElement("div");
+          playerDiv.classList.add("player");
+          playerDiv.id = player.id;
+          playerDiv.innerHTML = `
+            <h1>${player.name}</h1>
+            <p>${player.summary}</p>
+            <div class="modal-content-hidden" style="display: none;">
+              ${player.modalContent}
+            </div>
+          `;
+          playerGrid.appendChild(playerDiv);
+        });
+  
+        // Get all player elements after they've been added
+        const playerElements = Array.from(document.querySelectorAll(".player"));
+        // Initially hide all players
+        playerElements.forEach(player => {
+          player.style.display = "none";
+          player.style.opacity = "0";
+        });
+  
+        // Split players into groups (first 6, then the rest)
+        const groups = [
+          playerElements.slice(0, 6),
+          playerElements.slice(6)
+        ];
+        let currentGroupIndex = 0;
+        let autoCycle = null;
+  
+        // Update the navigation button opacities based on the active group
+        function updateButtonOpacities(activeIndex) {
+          for (let i = 0; i < pageNumber; i++) {
+            const btn = document.getElementById(`show${i + 1}`);
+            if (btn) {
+              btn.style.opacity = (i === activeIndex) ? "1" : "0.3";
+            }
+          }
         }
-    }
-    
-    function stopAutoCycle() {
-        if (autoCycle) {
+  
+        // Stop the auto-cycle timer
+        function stopAutoCycle() {
+          if (autoCycle) {
             clearInterval(autoCycle);
             autoCycle = null;
+          }
         }
-    }
-    
-    function showGroup(groupIndex, fade = true) {
-        if (fade) {
+  
+        // Show a given group with an optional fade transition
+        function showGroup(groupIndex, fade = true) {
+          if (fade) {
             groups[currentGroupIndex].forEach(p => p.style.opacity = "0");
             setTimeout(() => {
-                players.forEach(p => p.style.display = "none");
-                groups[groupIndex].forEach(p => {
-                    p.style.display = "block";
-                    setTimeout(() => p.style.opacity = "1", 50);
-                });
-                currentGroupIndex = groupIndex;
-                updateButtonOpacities(groupIndex);
+              // Hide all players
+              playerElements.forEach(p => p.style.display = "none");
+              // Show the new group and fade in
+              groups[groupIndex].forEach(p => {
+                p.style.display = "block";
+                setTimeout(() => p.style.opacity = "1", 50);
+              });
+              currentGroupIndex = groupIndex;
+              updateButtonOpacities(groupIndex);
             }, 500);
-        } else {
+          } else {
             groups[currentGroupIndex].forEach(p => {
-                p.style.opacity = "0";
-                p.style.display = "none";
+              p.style.opacity = "0";
+              p.style.display = "none";
             });
             groups[groupIndex].forEach(p => {
-                p.style.display = "block";
-                p.style.opacity = "1";
+              p.style.display = "block";
+              p.style.opacity = "1";
             });
             currentGroupIndex = groupIndex;
             updateButtonOpacities(groupIndex);
+          }
         }
-    }
-    
-    showGroup(0, false);
-    
-    autoCycle = setInterval(() => {
-        const nextGroupIndex = (currentGroupIndex + 1) % groups.length;
-        showGroup(nextGroupIndex);
-    }, fadeInterval);
-    
-    for (let i = 0; i < pageNumer; i++) {
-        document.getElementById(`show${i + 1}`).addEventListener("click", () => {
-            stopAutoCycle();
-            showGroup(i, false);
-        });
-    }
-    
-    // Modal functionality
-    const modal = document.createElement("div");
-    modal.id = "modal";
-    modal.className = "modal";
-    modal.innerHTML = `
-        <div class="modal-content">
+  
+        // Immediately show the first group without fading
+        showGroup(0, false);
+  
+        // Start auto-cycling between groups
+        autoCycle = setInterval(() => {
+          const nextGroupIndex = (currentGroupIndex + 1) % groups.length;
+          showGroup(nextGroupIndex);
+        }, fadeInterval);
+  
+        // Add click event listeners to group navigation buttons
+        for (let i = 0; i < pageNumber; i++) {
+          const btn = document.getElementById(`show${i + 1}`);
+          if (btn) {
+            btn.addEventListener("click", () => {
+              stopAutoCycle();
+              showGroup(i, false);
+            });
+          }
+        }
+  
+        // Modal functionality setup
+        const modal = document.createElement("div");
+        modal.id = "modal";
+        modal.className = "modal";
+        modal.innerHTML = `
+          <div class="modal-content">
             <span class="close">&times;</span>
-            <div id="modal-body"></div>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    
-    const modalBody = document.getElementById("modal-body");
-    const closeModal = modal.querySelector(".close");
-    
-    players.forEach(player => {
-        player.addEventListener("click", () => {
+            <div id="player-content"></div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+  
+        const modalBody = document.getElementById("player-content");
+        const closeModal = modal.querySelector(".close");
+  
+        // Open modal on player click with that player's modal content
+        playerElements.forEach(player => {
+          player.addEventListener("click", () => {
             stopAutoCycle();
             const modalContent = player.querySelector(".modal-content-hidden").innerHTML;
             modalBody.innerHTML = modalContent;
             modal.style.display = "flex";
+          });
         });
-    });
-    
-    closeModal.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-    
-    window.addEventListener("click", event => {
-        if (event.target === modal) {
+  
+        // Close the modal when the close button is clicked
+        closeModal.addEventListener("click", () => {
+          modal.style.display = "none";
+        });
+  
+        // Close the modal if the user clicks outside of the modal content
+        window.addEventListener("click", event => {
+          if (event.target === modal) {
             modal.style.display = "none";
-        }
-    });
-
-    document.getElementById('select-year').addEventListener('change', function() {
-        var selectedYear = this.value;
-        var tournamentLists = document.querySelectorAll('.tournament-list');
-
-        tournamentLists.forEach(function(list) {
-            list.style.display = 'none';
+          }
         });
+      })
+      .catch(error => {
+        console.error("Error loading players:", error);
+      });
+  
 
-        document.getElementById('t' + selectedYear).style.display = 'grid';
+    // Tournament year filtering: load tournament data from a JSON file
+    fetch("tournaments.json")
+    .then(response => response.json())
+    .then(tournamentsData => {
+        // Assuming your tournament containers in HTML have ids "t2024" and "t2025"
+        Object.keys(tournamentsData).forEach(year => {
+        const container = document.getElementById('t' + year);
+        if (container) {
+            // Clear any existing content
+            container.innerHTML = "";
+            // Create tournament entries from JSON data
+            tournamentsData[year].forEach(tournament => {
+            const tournamentDiv = document.createElement("div");
+            tournamentDiv.classList.add("tournament");
+            tournamentDiv.innerHTML = `
+                ${tournament.date}<br>
+                <h1>${tournament.title}</h1>
+                <p>
+                ${tournament.details}
+                </p>
+            `;
+            container.appendChild(tournamentDiv);
+            });
+        }
+        });
+    })
+    .catch(error => console.error("Error loading tournament data:", error));
+
+    // Handle tournament filtering on year select
+    document.getElementById('select-year').addEventListener('change', function() {
+    var selectedYear = this.value;
+    var tournamentLists = document.querySelectorAll('.tournament-list');
+
+    tournamentLists.forEach(function(list) {
+        list.style.display = 'none';
     });
-});
+
+    const target = document.getElementById('t' + selectedYear);
+    if (target) {
+        target.style.display = 'grid';
+    }
+    });
+
+  });
+  

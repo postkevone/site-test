@@ -160,14 +160,15 @@ p {font-size: var(--font-size-text);}
     text-align: right;
 }
 
-.player-content  {
+#player-content  {
     text-align: left;
     margin-top: -45px;
     max-height: 650px;
     overflow: scroll;
 }
 
-.player-content h1 {margin-bottom: var(--base-padding);}
+.player h1,
+#player-content h1 {margin-bottom: var(--base-padding);}
 
 .close {
     position: relative;
@@ -225,6 +226,10 @@ p {font-size: var(--font-size-text);}
     padding: var(--base-padding-2);
     border: 2px solid var(--text-color);
     border-radius: var(--border-radius);
+}
+
+.tournament h1 {
+    margin-bottom: var(--base-padding);
 }
 
 #t2024 {display: none;}
