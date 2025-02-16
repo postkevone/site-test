@@ -109,10 +109,19 @@ p {font-size: var(--font-size-text);}
 
 #page1 {flex-direction: column;}
 
+.navButtons {margin-top: var(--base-padding-2);}
+
+#page1 button {
+    background: none;
+    padding: var(--base-padding);
+    border: 2px solid var(--text-color);
+    border-radius: 5px;
+}
+
 .player-grid {
     margin-top: var(--base-padding-3);
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--base-padding-2);
     width: 100%;
 }
@@ -127,14 +136,6 @@ p {font-size: var(--font-size-text);}
 }
 
 .player:hover {border: 2px solid var(--icu-color);}
-
-#page1 button {
-    margin-top: var(--base-padding-3);
-    background: none;
-    padding: var(--base-padding);
-    border: 2px solid var(--text-color);
-    border-radius: 5px;
-}
 
 .modal {
     display: none;
@@ -166,6 +167,8 @@ p {font-size: var(--font-size-text);}
     max-height: 650px;
     overflow: scroll;
 }
+
+#player-content p {font-size: var(--font-size-small);}
 
 .player h1,
 #player-content h1 {margin-bottom: var(--base-padding);}
@@ -247,6 +250,7 @@ p {font-size: var(--font-size-text);}
 
 @media only screen and (min-width: 480px) {
     .modal-content {width: 460px;}
+    #player-content p {font-size: var(--font-size-text);}
 }
 
 @media only screen and (min-width: 540px) {

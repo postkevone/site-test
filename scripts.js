@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pageNumber = 2; // number of groups/buttons
   
     // Fetch players data from a separate JSON file
-    fetch("https://postkevone.github.io/site-test/players.json")
+    fetch("players.json")
       .then(response => response.json())
       .then(playersData => {
         // Shuffle the players array
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
     // Tournament year filtering: load tournament data from a JSON file
-    fetch("https://postkevone.github.io/site-test/tournaments.json")
+    fetch("tournaments.json")
     .then(response => response.json())
     .then(tournamentsData => {
         // Assuming your tournament containers in HTML have ids "t2024" and "t2025"
