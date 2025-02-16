@@ -112,7 +112,7 @@ p {font-size: var(--font-size-text);}
 .player-grid {
     margin-top: var(--base-padding-3);
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: var(--base-padding-2);
     width: 100%;
 }
@@ -152,7 +152,7 @@ p {font-size: var(--font-size-text);}
 .modal-content {
     background: rgba(255, 255, 255, .95);
     padding: var(--base-padding-2);
-    height: 550px;
+    max-height: 700px;
     width: 420px;
     max-width: 600px;
     border-radius: var(--border-radius);
@@ -163,7 +163,7 @@ p {font-size: var(--font-size-text);}
 .player-content  {
     text-align: left;
     margin-top: -45px;
-    height: 500px;
+    max-height: 650px;
     overflow: scroll;
 }
 
@@ -254,7 +254,7 @@ p {font-size: var(--font-size-text);}
         margin-bottom: 0;
         margin-right: var(--base-padding-5);
     }
-    .player-grid {grid-template-columns: 1fr 1fr 1fr;}
+    .player-grid {grid-template-columns: 1fr 1fr;}
     .modal-content {width: 600px;}
     .tournament-list {
         grid-template-columns: 1fr 1fr;

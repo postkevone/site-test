@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const players = Array.from(document.querySelectorAll(".player"));
+    const pageNumer = 2;
+    const fadeInterval = 12000;
     
     for (let i = players.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -10,18 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
         player.style.display = "none";
         player.style.opacity = "0";
     });
-    
+
     const groups = [
-        players.slice(0, 3),
-        players.slice(3, 6),
-        players.slice(6, 9)
+        players.slice(0, 6),
+        players.slice(6, players.length)
     ];
-    
+
     let currentGroupIndex = 0;
     let autoCycle = null;
     
     function updateButtonOpacities(activeIndex) {
-        for (let i = 0; i < groups.length; i++) {
+        for (let i = 0; i < pageNumer; i++) {
             document.getElementById(`show${i + 1}`).style.opacity = (i === activeIndex) ? "1" : "0.3";
         }
     }
@@ -64,9 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
     autoCycle = setInterval(() => {
         const nextGroupIndex = (currentGroupIndex + 1) % groups.length;
         showGroup(nextGroupIndex);
-    }, 5000);
+    }, fadeInterval);
     
-    for (let i = 0; i < groups.length; i++) {
+    for (let i = 0; i < pageNumer; i++) {
         document.getElementById(`show${i + 1}`).addEventListener("click", () => {
             stopAutoCycle();
             showGroup(i, false);
