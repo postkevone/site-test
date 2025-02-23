@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pageNumber = 2; // number of groups/buttons
   
     // Fetch players data from a separate JSON file
-    fetch("/data/players.json")
+    fetch("https://raw.githubusercontent.com/postkevone/site-test/refs/heads/main/data/players.json")
       .then(response => response.json())
       .then(playersData => {
         // Shuffle the players array
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
     // Tournament year filtering: load tournament data from a JSON file
-    fetch("/data/tournaments.json")
+    fetch("https://raw.githubusercontent.com/postkevone/site-test/refs/heads/main/data/tournaments.json")
     .then(response => response.json())
     .then(tournamentsData => {
         // Assuming your tournament containers in HTML have ids "t2024" and "t2025"
