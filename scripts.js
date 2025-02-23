@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pageNumber = 2; // number of groups/buttons
   
     // Fetch players data from a separate JSON file
-    fetch("players.json")
+    fetch("/data/players.json")
       .then(response => response.json())
       .then(playersData => {
         // Shuffle the players array
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
           playerDiv.classList.add("player");
           playerDiv.id = player.id;
           playerDiv.innerHTML = `
+            <div class="profile-preview"><img src=${player.picture} height='60'/></div>
             <h1>${player.name}</h1>
             <p>${player.summary}</p>
             <div class="modal-content-hidden" style="display: none;">
@@ -153,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
     // Tournament year filtering: load tournament data from a JSON file
-    fetch("tournaments.json")
+    fetch("/data/tournaments.json")
     .then(response => response.json())
     .then(tournamentsData => {
         // Assuming your tournament containers in HTML have ids "t2024" and "t2025"
