@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const githubJSON = "https://postkevone.github.io/site-test/data/";
   
     // Fetch players data from a separate JSON file
-    fetch(githubJSON+"players.json")
+    fetch("players.json")
       .then(response => response.json())
       .then(playersData => {
         // Shuffle the players array
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
           playerDiv.classList.add("player");
           playerDiv.id = player.id;
           playerDiv.innerHTML = `
-            <div class="profile-preview"><img src=${player.picture} height='60'/></div>
+            <div class="profile-preview" style='background-image:url(${player.picture});'></div>
             <h1>${player.name}</h1>
             <p>${player.summary}</p>
             <div class="modal-content-hidden" style="display: none;">
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
     // Tournament year filtering: load tournament data from a JSON file
-    fetch(githubJSON+"tournaments.json")
+    fetch("tournaments.json")
     .then(response => response.json())
     .then(tournamentsData => {
         // Assuming your tournament containers in HTML have ids "t2024" and "t2025"
