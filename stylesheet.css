@@ -253,6 +253,7 @@ p {font-size: var(--font-size-text);}
     margin-bottom: var(--base-padding);
 }
 
+/* change this for tournaments to show or not */
 #t2024 {display: none;}
 
 /* FOOTER */
