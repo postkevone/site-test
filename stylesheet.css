@@ -63,7 +63,7 @@ p {font-size: var(--font-size-text);}
 .navbar a {
     color: var(--text-color-inverse);
     text-decoration: none;
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-text);
     font-weight: 500;
     transition: opacity 0.3s ease;
     padding: calc(var(--base-padding) / 2 - 2px) var(--base-padding-2);
@@ -228,12 +228,56 @@ p {font-size: var(--font-size-text);}
 
 /* PAGE 3 */
 
-#page3 {
+#page3 {flex-direction: column;}
+
+.photo-list {
+    margin-top: var(--base-padding-3);
+    display: flex;
+    flex-direction: row;
+    max-width: 100vw;
+}
+
+.photo {
+    min-height: var(--schedule-min-height);
+    width: 100%;
+    min-height: 0;
+    border: 2px solid rgba(3, 3, 3, .3);
+    border-radius: var(--border-radius);
+}
+
+.photo img {
+    width: 100%;
+}
+
+#photo1 {margin-right: var(--base-padding-2);}
+
+#photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+#photo-modal img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+/* PAGE 4 */
+
+#page4 {
     flex-direction: column;
     border-bottom: initial;
 }
 
-#page3 select {margin-top: var(--base-padding-2);}
+#page4 select {margin-top: var(--base-padding-2);}
 
 .tournament-list {
     margin-top: var(--base-padding-3);
@@ -284,6 +328,9 @@ p {font-size: var(--font-size-text);}
         margin-right: var(--base-padding-5);
     }
     .modal-content {width: 600px;}
+    #photo-modal img {
+        max-width: 700px;
+    }
     .tournament-list {
         grid-template-columns: 1fr 1fr;
         gap: var(--base-padding-2);

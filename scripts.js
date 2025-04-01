@@ -199,3 +199,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
   
+// Add this to your scripts.js or here
+function openModal(src, alt) {
+  const modal = document.getElementById('photo-modal');
+  const modalImg = document.getElementById('photo-large');
+  
+  modal.style.display = 'flex';
+  modalImg.src = src;
+  modalImg.alt = alt;
+}
+
+function closeModal() {
+  document.getElementById('photo-modal').style.display = 'none';
+}
