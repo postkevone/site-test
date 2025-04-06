@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const fadeInterval = 12000; // time between auto-cycles in ms
+    const fadeInterval = 1000000000; //12000 time between auto-cycles in ms
     const pageNumber = 1; // number of groups/buttons
     const githubJSON = "https://postkevone.github.io/site-test/data/";
   
