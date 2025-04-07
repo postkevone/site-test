@@ -10,6 +10,7 @@
     --font-size-title: 25px;
     --font-size-text: 16px;
     --font-size-small: 14px;
+    --font-size-summary-arrow: 30px;
 
     --text-color: #333;
     --text-color-inverse: #fff;
@@ -46,6 +47,10 @@ h1 {
 }
     
 p {font-size: var(--font-size-text);}
+
+details > summary {
+    font-size: var(--font-size-summary-arrow);
+}
 
 /* Fixed Top Navigation Bar */
 .navbar {
@@ -95,6 +100,7 @@ p {font-size: var(--font-size-text);}
 #home {
     flex-direction: column;
     padding-top: calc(var(--base-padding-3) + 32px);
+    border-bottom: initial;
 }
 
 #home .logo {
@@ -108,6 +114,19 @@ p {font-size: var(--font-size-text);}
 }
 
 #home h1 {margin-bottom: var(--base-padding);}
+
+/* 監督からのメッセージ */
+
+#coach {
+    padding-top: initial;
+}
+
+#coach details {
+    border: 2px solid var(--text-color);
+    border-radius: var(--border-radius);
+    padding: var(--base-padding-3);
+    width: 100%;
+}
 
 /* PAGE 1 */
 
