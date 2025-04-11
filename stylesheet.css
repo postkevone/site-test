@@ -266,6 +266,7 @@ details > summary {
 
 .photo img {
     width: 100%;
+    border-radius: var(--border-radius);
 }
 
 #photo1 {margin-right: var(--base-padding-2);}
